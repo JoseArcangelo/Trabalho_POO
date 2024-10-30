@@ -80,15 +80,17 @@ public class Principal {
 
       }
       else if(opcao == 4) {
+        int contador = 0;
         for(Rota rota : rotas){
 
           System.out.print("Digite o digito da roda que deseja adicionar um EletroPosto:\n");
-          int contador = 0;
-          System.out.println(contador + " - Origem: " + rota.getOrigem() + ", Destino: " + rota.getDestino() + ", Distancia: " + rota.getKmPercorrido());
-          contador +=1;
           
+          System.out.println(contador + " - Origem: " + rota.getOrigem() + ", Destino: " + rota.getDestino() + ", Distancia: " + rota.getKmPercorrido());
+          
+          contador = contador +1;
         }
-        int contador = sc.nextInt();
+        
+        int digito = sc.nextInt();
         System.out.print("Informe o ID: ");
         int ids = sc.nextInt();
 
@@ -99,10 +101,16 @@ public class Principal {
         double tempoCarregamento = sc.nextDouble();
 
         Eletropostos as = new Eletropostos(ids, numeroVagas, tempoCarregamento);
-        Rota teste = rotas.get(contador);
+        Rota teste = rotas.get(digito);
         teste.addEletroposto(as);
         System.out.println("::ELETROPOSTO REGISTRADO COM SUCESSO!::");
-      }
+
+      
+        
+          
+        }
+
+      
     
       else if(opcao == 6) {
         System.out.print("Rotas disponiveis");

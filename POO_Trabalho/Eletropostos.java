@@ -8,5 +8,8 @@ public class Eletropostos {
       this.numeroVagas = numeroVagas;
       this.tempoCarregamento = tempoCarregamento;
   }
-  
+  public int get_id(){
+    return this.id;
+  }
 }
+

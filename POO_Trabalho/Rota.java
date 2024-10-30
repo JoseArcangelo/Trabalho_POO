@@ -32,7 +32,13 @@ public class Rota {
     return eletropostos;
   }
 
+  public void listarEletropostos (){
+    for (Eletropostos eletroposto:eletropostos){
+      System.out.print(eletroposto.get_id());
 
+    }
+
+  }
 
   public Rota(String origem, String destino, double kmPercorrido) {
     this.origem = origem;
