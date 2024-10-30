@@ -79,7 +79,31 @@ public class Principal {
         frota.listarMotoristas();
 
       }
-      
+      else if(opcao == 4) {
+        for(Rota rota : rotas){
+
+          System.out.print("Digite o digito da roda que deseja adicionar um EletroPosto:\n");
+          int contador = 0;
+          System.out.println(contador + " - Origem: " + rota.getOrigem() + ", Destino: " + rota.getDestino() + ", Distancia: " + rota.getKmPercorrido());
+          contador +=1;
+          
+        }
+        int contador = sc.nextInt();
+        System.out.print("Informe o ID: ");
+        int ids = sc.nextInt();
+
+        System.out.print("Informe o numero de vagas: ");
+        int numeroVagas = sc.nextInt();
+
+        System.out.print("Informe o tempo de carregamento:");
+        double tempoCarregamento = sc.nextDouble();
+
+        Eletropostos as = new Eletropostos(ids, numeroVagas, tempoCarregamento);
+        Rota teste = rotas.get(contador);
+        teste.addEletroposto(as);
+        System.out.println("::ELETROPOSTO REGISTRADO COM SUCESSO!::");
+      }
+    
       else if(opcao == 6) {
         System.out.print("Rotas disponiveis");
         int contador = 0;
@@ -105,7 +129,10 @@ public class Principal {
         System.out.println("::ROTA REGISTRADA COM SUCESSO!::");
         
       }
+      else if(opcao == 8){
 
+        
+      }
       else if(opcao == 9) {
         break;
       }
@@ -113,6 +140,7 @@ public class Principal {
     
     
   }
+
 }
 
 

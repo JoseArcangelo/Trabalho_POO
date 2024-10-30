@@ -44,7 +44,7 @@ public class Rota {
 
 
   public void addEletroposto(Eletropostos eletroposto) {
-    eletropostos.add(eletroposto);
+    this.eletropostos.add(eletroposto);
   }
 
 
