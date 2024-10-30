@@ -13,8 +13,29 @@ public class Principal {
     // Criando a frota
     Frota frota = new Frota();
 
+    Veiculos v1 = new CarrosCompactos(2020, 35.0,  1, "Tesla", "Model 3", frota);
+    Veiculos v2 = new CarrosCompactos(2019, 40.0, 2, "Nissan", "Leaf", frota);
+    Veiculos v3 = new CarrosCompactos(2021, 38.0, 3 ,"Chevrolet", "Bolt EV", frota);
+
+    // Criando 3 carros sedans
+    Veiculos v4 = new CarrosSedans(2021, 65.0, 4, "Tesla", "Model S", frota);
+    Veiculos v5 = new CarrosSedans(2020, 60.0, 5, "BMW", "i4", frota);
+    Veiculos v6 = new CarrosSedans(2019, 70.0, 6 ,"Lucid", "Air", frota);
+
+    // Criando 3 SUVs elétricos
+    Veiculos v7 = new CarrosSUVsEletricos(2022, 80.0, 7, "Tesla", "Model X", frota);
+    Veiculos v8 = new CarrosSUVsEletricos(2021, 75.0, 8, "Audi", "e-tron", frota);
+    Veiculos v9 = new CarrosSUVsEletricos(2020, 85.0, 9, "Ford", "Mustang Mach-E", frota);
+
+
     int id = 1;
     int opcao = 1; 
+
+
+
+
+
+
 
     // Menu de opcoes
     while(opcao != 0) {
@@ -116,11 +137,63 @@ public class Principal {
         System.out.print("Rotas disponiveis");
         int contador = 0;
         for(Rota rota : rotas) {
+          
+          System.out.println(contador + " - Origem: " + rota.getOrigem() + ", Destino: " + rota.getDestino() + ", Distancia: " + rota.getKmPercorrido());
           contador +=1;
-          System.out.println("ROTA #" + contador + "\nOrigem: " + rota.getOrigem() + "\nDestino: " + rota.getDestino() + "\nDistancia: " + rota.getKmPercorrido());
-  
         }
-      }
+        int peganum = sc.nextInt();
+        Rota rota = rotas.get(peganum);
+
+        System.out.println("Escolha um motorista:");
+        frota.listarMotoristas();
+        int opcmotorista = sc.nextInt();
+
+        Motoristas motorista = frota.listMotoristas().get(opcmotorista);
+
+        System.out.println("Escolha um Veiculo:");
+        frota.listarVeiculos();
+        int opcveiculo = sc.nextInt();
+
+        Veiculos veiculo = frota.listVeiculos().get(opcveiculo);
+
+        double autonomia = veiculo.getAutonomiaMaxima();
+        double distancia = rota.getKmPercorrido();
+
+        if (autonomia>distancia){
+          Viagem disney = new Viagem(rota,motorista,veiculo);
+        }
+        else if (autonomia<distancia){
+          int contar = 0;
+          while (autonomia<distancia){
+            List<Eletropostos>EletropostosParada = new ArrayList<>();
+            List<Eletropostos>ListaEletropostos = rota.getEletropostos();
+
+            if(ListaEletropostos.get(contar).getNumeroVagas()>0){
+            EletropostosParada.add(ListaEletropostos.get(contar));
+            distancia = distancia - autonomia;
+            contar +=1;
+            }
+            else{
+            contar +=1;
+            }
+            
+            if (contar > ListaEletropostos.size()){
+              
+              System.out.println("deu ruim");
+              break;
+            }
+
+              
+            }
+
+
+
+          }
+
+
+        }
+
+      
 
       else if(opcao == 7){
         System.out.print("Informe a origem: ");

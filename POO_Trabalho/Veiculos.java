@@ -19,8 +19,33 @@ public class Veiculos{
     frota.addVeiculo(this);
   }
 
+
   public String getModelo() {
       return modelo;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getMarca() {
+    return marca;
+  }
+
+  public int getAnoFabricacao() {
+    return anoFabricacao;
+  }
+
+  public double getCapacidadeTotalBateria() {
+    return capacidadeTotalBateria;
+  }
+
+  public double getAutonomiaMaxima() {
+    return autonomiaMaxima;
+  }
+
+  public double getTempoMedioRecarga() {
+    return tempoMedioRecarga;
   }
 
     

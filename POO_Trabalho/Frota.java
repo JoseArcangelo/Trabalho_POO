@@ -26,11 +26,18 @@ public class Frota {
 
   public void listarMotoristas() {
     System.out.println("Lista dos motoristas: ");
+    int contador = 0;
     for(Motoristas m : motoristas) {
-      System.out.println(m.getNome());
+      System.out.println("0 - " + m.getNome());
+      contador += 1;
     }
   }
-  
+  public List<Motoristas> listMotoristas(){
+    return motoristas;
+  }
+  public List<Veiculos> listVeiculos(){
+    return veiculos;
+  }
 
   
 }

@@ -34,7 +34,7 @@ public class Rota {
 
   public void listarEletropostos (){
     for (Eletropostos eletroposto:eletropostos){
-      System.out.print(eletroposto.get_id());
+      System.out.print(eletroposto.getId());
 
     }
 
