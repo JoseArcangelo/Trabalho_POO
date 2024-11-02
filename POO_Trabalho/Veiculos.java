@@ -65,13 +65,18 @@ public class Veiculos{
         
         Eletropostos eletroposto = listEletropostos.get(contador);
 
-        if(eletroposto.getDistancia() <= autonomiaMaxima){
+      
           eletropostosParada.add(eletroposto);
           distancia = rota.getKmPercorrido() - eletroposto.getDistancia();
-        }
+        
 
         if(contador == listEletropostos.size()){
+          System.out.println("::Paradas::");
           if(autonomiaMaxima < distancia){
+            System.out.println("::Paradas::");
+            for(Eletropostos e : eletropostosParada) {
+              System.out.println("DISTANCIA ELETROPOSTO: " + e.getDistancia());
+            }
             break;
           }
 

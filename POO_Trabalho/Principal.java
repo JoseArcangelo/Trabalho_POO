@@ -46,10 +46,18 @@ public class Principal {
     rotas.add(rota5);
 
     Eletropostos ee = new Eletropostos(1, 12, 12);
-    double distancia = 300;
-    boolean verificacao = ee.setDistancia(distancia, rota5);
-    if(verificacao == true) {       
+    Eletropostos eee = new Eletropostos(2, 12, 12);
+    double distancias1 = 300;
+    double distancias2 = 600;
+    boolean verificacaos = ee.setDistancia(distancias1, rota5);
+    if(verificacaos == true) {       
       rota5.addEletroposto(ee);
+      System.out.println("::ELETROPOSTO REGISTRADO COM SUCESSO!::");            
+      rota5.ordenarEletropostos();  
+    }
+    boolean verificacaoo = eee.setDistancia(distancias2, rota5);
+    if(verificacaoo == true) {       
+      rota5.addEletroposto(eee);
       System.out.println("::ELETROPOSTO REGISTRADO COM SUCESSO!::");            
       rota5.ordenarEletropostos();  
     }
