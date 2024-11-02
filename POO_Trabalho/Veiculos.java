@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Veiculos{
   protected int id;
   protected String marca;
@@ -6,6 +10,7 @@ public class Veiculos{
   protected double capacidadeTotalBateria;
   protected double autonomiaMaxima;
   protected double tempoMedioRecarga;
+
 
   public Veiculos(int anoFabricacao, double autonomiaMaxima, double capacidadeTotalBateria, int id, String marca, String modelo, double tempoMedioRecarga, Frota frota) {
     this.anoFabricacao = anoFabricacao;
@@ -19,41 +24,81 @@ public class Veiculos{
     frota.addVeiculo(this);
   }
 
-
   public String getModelo() {
       return modelo;
   }
 
-  public int getId() {
-    return id;
-  }
+    public int getId() {
+        return id;
+    }
 
-  public String getMarca() {
-    return marca;
-  }
+    public String getMarca() {
+        return marca;
+    }
 
-  public int getAnoFabricacao() {
-    return anoFabricacao;
-  }
+    public int getAnoFabricacao() {
+        return anoFabricacao;
+    }
 
-  public double getCapacidadeTotalBateria() {
-    return capacidadeTotalBateria;
-  }
+    public double getCapacidadeTotalBateria() {
+        return capacidadeTotalBateria;
+    }
 
-  public double getAutonomiaMaxima() {
-    return autonomiaMaxima;
-  }
+    public double getAutonomiaMaxima() {
+        return autonomiaMaxima;
+    }
 
-  public double getTempoMedioRecarga() {
-    return tempoMedioRecarga;
-  }
-
-    
-  
+    public double getTempoMedioRecarga() {
+        return tempoMedioRecarga;
+    }
 
   
-  
+    public boolean verificarAutonomia(Rota rota, Registro r) {
+      List<Eletropostos> listEletropostos = rota.getEletropostos();
+      List<Eletropostos> eletropostosParada = new ArrayList<>();
+      List<Integer> aux = new ArrayList<>();
 
+      double distancia = rota.getKmPercorrido();
+      
+      while(autonomiaMaxima < distancia && listEletropostos.size() > 0){
+        System.out.println(distancia + "   " + autonomiaMaxima);
+        int contador = 0;
+        Eletropostos eletroposto = listEletropostos.get(contador);
+
+        if(eletroposto.getDistancia() <= autonomiaMaxima){
+          eletropostosParada.add(eletroposto);
+          distancia = rota.getKmPercorrido() - eletroposto.getDistancia();
+        }
+
+        if(contador > listEletropostos.size()){
+          if(autonomiaMaxima < distancia){
+            break;
+          }
+
+          else{
+            System.out.println("::Paradas::");
+            for(Eletropostos e : eletropostosParada) {
+              System.out.println("DISTANCIA ELETROPOSTO: " + e.getDistancia());
+            }
+          }
+          break;
+        }          
+        contador += 1;      
+      }
+      if(autonomiaMaxima < distancia){
+        return false;
+      }
+      else{
+        for(Eletropostos e : eletropostosParada) {
+          r.addRegistroRecarga("-> ELETROPOSTO DA ROTA: " + rota.getOrigem() + "/" + rota.getDestino() + ", VEICULO " + "Modelo: " + modelo + ", Marca: " + marca);
+        }
+        capacidadeTotalBateria -= rota.getKmPercorrido();
+        return true;
+      }
+      
+
+
+    }
 
 
   

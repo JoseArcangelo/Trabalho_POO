@@ -12,6 +12,14 @@ public class Viagem {
   public Rota getRota() {
     return rota;
   }
+  
+  public Motoristas getMotorista() {
+    return motorista;
+  }
 
+  public void exibirViagem() {
+    System.out.println("-> Origem: " + rota.getOrigem() + ", Destino: " + rota.getDestino() + ", Distancia:" + rota.getKmPercorrido() + "KM" + 
+    "\nVEICULO UTILIZADO - " + " Modelo: " + veiculo.getModelo() + ", Marca: " + veiculo.getMarca() + "\n");
+  }
   
 }

@@ -15,8 +15,22 @@ public class Motoristas {
     }
 
     public String getNome() {
-      return nome;
+        return nome;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getNumeroCNH() {
+        return NumeroCNH;
+    }
+
+    public String getExpertise() {
+        return expertise;
+    }
+
+
 
     
 

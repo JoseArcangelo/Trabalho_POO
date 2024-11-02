@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Frota {
-  List<Veiculos> veiculos;
-  List<Motoristas> motoristas;
-  
+  private List<Veiculos> veiculos;
+  private List<Motoristas> motoristas;
+
   public Frota() {
       this.veiculos = new ArrayList<>();
       this.motoristas = new ArrayList<>();
@@ -25,18 +25,33 @@ public class Frota {
   }
 
   public void listarMotoristas() {
-    System.out.println("Lista dos motoristas: ");
-    int contador = 0;
-    for(Motoristas m : motoristas) {
-      System.out.println("0 - " + m.getNome());
-      contador += 1;
+    if(motoristas.size() > 0){
+      System.out.println("Lista dos motoristas: ");
+      for(Motoristas m : motoristas) {
+        System.out.println("Motoristas: " + m.getNome() + ", Experiencia: " + m.getExpertise());
+      }
+    }
+    else{
+      System.out.println("::NENHUM MOTORISTA REGISTRADO!::");
     }
   }
-  public List<Motoristas> listMotoristas(){
-    return motoristas;
-  }
-  public List<Veiculos> listVeiculos(){
-    return veiculos;
+
+    public List<Veiculos> getVeiculos() {
+        return veiculos;
+    }
+
+    public List<Motoristas> getMotoristas() {
+        return motoristas;
+    }
+
+  public void autonomiaInferior() {
+    for (Veiculos v : veiculos) {
+      double capacidade = v.getCapacidadeTotalBateria() * 0.2;
+      if(v.getAutonomiaMaxima() < capacidade){
+        System.out.println("Modelo: " + v.getModelo() + ", Marca: " + v.getMarca() + ", Autonomia: " + v.getAutonomiaMaxima());  
+      }
+     
+    }
   }
 
   
