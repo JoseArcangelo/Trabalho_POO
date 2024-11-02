@@ -59,10 +59,10 @@ public class Veiculos{
       List<Integer> aux = new ArrayList<>();
 
       double distancia = rota.getKmPercorrido();
-      
-      while(autonomiaMaxima < distancia && listEletropostos.size() > 0){
+      int contador = 0;
+      while(autonomiaMaxima < distancia && contador < listEletropostos.size()){
         System.out.println(distancia + "   " + autonomiaMaxima);
-        int contador = 0;
+        
         Eletropostos eletroposto = listEletropostos.get(contador);
 
         if(eletroposto.getDistancia() <= autonomiaMaxima){
@@ -70,7 +70,7 @@ public class Veiculos{
           distancia = rota.getKmPercorrido() - eletroposto.getDistancia();
         }
 
-        if(contador > listEletropostos.size()){
+        if(contador == listEletropostos.size()){
           if(autonomiaMaxima < distancia){
             break;
           }

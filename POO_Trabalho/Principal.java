@@ -37,12 +37,22 @@ public class Principal {
     Rota rota3 = new Rota("Belo Horizonte", "Vitoria", 530.0);
     Rota rota4 = new Rota("Brasilia", "Goiania", 210.0);
     Rota rota5 = new Rota("Salvador", "Recife", 800.0);
+
+    
     rotas.add(rota1);
     rotas.add(rota2);
     rotas.add(rota3);
     rotas.add(rota4);
     rotas.add(rota5);
 
+    Eletropostos ee = new Eletropostos(1, 12, 12);
+    double distancia = 300;
+    boolean verificacao = ee.setDistancia(distancia, rota5);
+    if(verificacao == true) {       
+      rota5.addEletroposto(ee);
+      System.out.println("::ELETROPOSTO REGISTRADO COM SUCESSO!::");            
+      rota5.ordenarEletropostos();  
+    }
 
     int id = 1;
     int opcao = 1; 
