@@ -61,7 +61,6 @@ public class Veiculos{
       double distancia = rota.getKmPercorrido();
       int contador = 0;
       while(autonomiaMaxima < distancia && contador < listEletropostos.size()){
-        System.out.println(distancia + "   " + autonomiaMaxima);
         
         Eletropostos eletroposto = listEletropostos.get(contador);
 
@@ -103,6 +102,10 @@ public class Veiculos{
       
 
 
+    }
+
+    public void setCapacidadeTotalBateria(double capacidadeTotalBateria) {
+        this.capacidadeTotalBateria = capacidadeTotalBateria;
     }
 
 

@@ -45,22 +45,7 @@ public class Principal {
     rotas.add(rota4);
     rotas.add(rota5);
 
-    Eletropostos ee = new Eletropostos(1, 12, 12);
-    Eletropostos eee = new Eletropostos(2, 12, 12);
-    double distancias1 = 300;
-    double distancias2 = 600;
-    boolean verificacaos = ee.setDistancia(distancias1, rota5);
-    if(verificacaos == true) {       
-      rota5.addEletroposto(ee);
-      System.out.println("::ELETROPOSTO REGISTRADO COM SUCESSO!::");            
-      rota5.ordenarEletropostos();  
-    }
-    boolean verificacaoo = eee.setDistancia(distancias2, rota5);
-    if(verificacaoo == true) {       
-      rota5.addEletroposto(eee);
-      System.out.println("::ELETROPOSTO REGISTRADO COM SUCESSO!::");            
-      rota5.ordenarEletropostos();  
-    }
+
 
     int id = 1;
     int opcao = 1; 
@@ -185,6 +170,7 @@ public class Principal {
       }
       // Registrar viagem
       else if(opcao == 4) {
+        double x = 0;
         System.out.println("::ROTAS DISPONIVEIS::");
         int contador = 0;
         for(Rota rota : rotas){
@@ -219,6 +205,8 @@ public class Principal {
         boolean verificacao = listVeiculos.get(digitoVeiculo).verificarAutonomia(rotas.get(digitoRota), registros);
         if(verificacao == true){
           Viagem v = new Viagem(rotas.get(digitoRota), listMotoristas.get(digitoMotorista), listVeiculos.get(digitoVeiculo)); 
+          x = listVeiculos.get(digitoVeiculo).getCapacidadeTotalBateria() - rotas.get(digitoRota).getKmPercorrido();
+          listVeiculos.get(digitoVeiculo).setCapacidadeTotalBateria(x);
           System.out.println("::Viagem cadastrada com sucesso!::");
           registros.addRegistro(v);
         }
@@ -244,6 +232,7 @@ public class Principal {
       }
       
       else if(opcao == 8) {
+        double vinte = 0;
         int o = 0;
         while(o != 5) {
           System.out.println("\n1 - LISTA DOS VEICULOS COM AUTONOMIA INFERIOR A 20% DA CAPACIDADE TOTAL DA BATERIA." + 
@@ -260,7 +249,7 @@ public class Principal {
           System.out.println("Lista dos veiculos com menos de 20% da bateria:\n");
           for(Veiculos veiculo : listVeiculos){
             
-            if (veiculo.getCapacidadeTotalBateria()<0.2){
+            if (veiculo.getCapacidadeTotalBateria()<0.2*veiculo.getAutonomiaMaxima()){
               System.out.println("ID do Veiculo: " + veiculo.getId() + ", Marca: " + veiculo.getMarca() + ", Modelo: " + veiculo.getModelo());
               contador += 1;
             }
