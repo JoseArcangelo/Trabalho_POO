@@ -10,6 +10,7 @@ public class Veiculos{
   protected double capacidadeTotalBateria;
   protected double autonomiaMaxima;
   protected double tempoMedioRecarga;
+  protected double bateriaAtual;
 
 
   public Veiculos(int anoFabricacao, double autonomiaMaxima, double capacidadeTotalBateria, int id, String marca, String modelo, double tempoMedioRecarga, Frota frota) {
@@ -20,6 +21,7 @@ public class Veiculos{
     this.marca = marca;
     this.modelo = modelo;
     this.tempoMedioRecarga = tempoMedioRecarga;
+    this.bateriaAtual = capacidadeTotalBateria;
 
     frota.addVeiculo(this);
   }
@@ -52,6 +54,7 @@ public class Veiculos{
         return tempoMedioRecarga;
     }
 
+    
   
     public boolean verificarAutonomia(Rota rota, Registro r) {
       List<Eletropostos> listEletropostos = rota.getEletropostos();
@@ -61,33 +64,13 @@ public class Veiculos{
       double distancia = rota.getKmPercorrido();
       int contador = 0;
       while(autonomiaMaxima < distancia && contador < listEletropostos.size()){
-        
+                
         Eletropostos eletroposto = listEletropostos.get(contador);
-
+        contador += 1;  
       
-          eletropostosParada.add(eletroposto);
-          distancia = rota.getKmPercorrido() - eletroposto.getDistancia();
-        
-
-        if(contador == listEletropostos.size()){
-          System.out.println("::Paradas::");
-          if(autonomiaMaxima < distancia){
-            System.out.println("::Paradas::");
-            for(Eletropostos e : eletropostosParada) {
-              System.out.println("DISTANCIA ELETROPOSTO: " + e.getDistancia());
-            }
-            break;
-          }
-
-          else{
-            System.out.println("::Paradas::");
-            for(Eletropostos e : eletropostosParada) {
-              System.out.println("DISTANCIA ELETROPOSTO: " + e.getDistancia());
-            }
-          }
-          break;
-        }          
-        contador += 1;      
+        eletropostosParada.add(eletroposto);
+        distancia = rota.getKmPercorrido() - eletroposto.getDistancia();
+            
       }
       if(autonomiaMaxima < distancia){
         return false;
@@ -96,16 +79,24 @@ public class Veiculos{
         for(Eletropostos e : eletropostosParada) {
           r.addRegistroRecarga("-> ELETROPOSTO DA ROTA: " + rota.getOrigem() + "/" + rota.getDestino() + ", VEICULO " + "Modelo: " + modelo + ", Marca: " + marca);
         }
-        capacidadeTotalBateria -= rota.getKmPercorrido();
+        System.out.println("::Paradas::");
+        for(Eletropostos e : eletropostosParada) {
+          System.out.println("DISTANCIA ELETROPOSTO: " + e.getDistancia());
+        }
+        bateriaAtual -= rota.getKmPercorrido();
+        if(capacidadeTotalBateria <= 0) {
+          r.addVeiculoManutencao(id);
+        }
         return true;
       }
-      
-
-
     }
 
-    public void setCapacidadeTotalBateria(double capacidadeTotalBateria) {
-        this.capacidadeTotalBateria = capacidadeTotalBateria;
+    public double getBateriaAtual() {
+        return bateriaAtual;
+    }
+
+    public void setBateriaAtual(double bateriaAtual) {
+        this.bateriaAtual = bateriaAtual;
     }
 
 

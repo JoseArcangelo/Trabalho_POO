@@ -22,7 +22,7 @@ public class Principal {
     Veiculos v6 = new CarrosSedans(2019, 4770.0, 06 ,"Lucid", "Air", frota);
 
     // Criando 3 SUVs elétricos
-    Veiculos v7 = new CarrosSUVsEletricos(2022, 7000.0, 07, "Tesla", "Model X", frota);
+    Veiculos v7 = new CarrosSUVsEletricos(2022, 1000.0, 07, "Tesla", "Model X", frota);
     Veiculos v8 = new CarrosSUVsEletricos(2021, 5600.0, 10, "Audi", "e-tron", frota);
     Veiculos v9 = new CarrosSUVsEletricos(2020, 5500.0, 9, "Ford", "Mustang Mach-E", frota);
     
@@ -47,7 +47,7 @@ public class Principal {
 
 
 
-    int id = 1;
+    int id = 100;
     int opcao = 1; 
 
     // Menu de opcoes
@@ -170,7 +170,6 @@ public class Principal {
       }
       // Registrar viagem
       else if(opcao == 4) {
-        double x = 0;
         System.out.println("::ROTAS DISPONIVEIS::");
         int contador = 0;
         for(Rota rota : rotas){
@@ -203,15 +202,14 @@ public class Principal {
 
         // Verificar autonomia
         boolean verificacao = listVeiculos.get(digitoVeiculo).verificarAutonomia(rotas.get(digitoRota), registros);
-        if(verificacao == true){
+        boolean verificacaoManutencao = registros.veiculosManutencao(listVeiculos.get(digitoVeiculo).getId());
+        if(verificacao == true && verificacaoManutencao == true){
           Viagem v = new Viagem(rotas.get(digitoRota), listMotoristas.get(digitoMotorista), listVeiculos.get(digitoVeiculo)); 
-          x = listVeiculos.get(digitoVeiculo).getCapacidadeTotalBateria() - rotas.get(digitoRota).getKmPercorrido();
-          listVeiculos.get(digitoVeiculo).setCapacidadeTotalBateria(x);
           System.out.println("::Viagem cadastrada com sucesso!::");
           registros.addRegistro(v);
         }
         else {
-          System.out.println("::ERRO! AUTONOMIA INSUFICIENTE!::");
+          System.out.println("::ERRO! AUTONOMIA INSUFICIENTE! OU O CARRO ESTA EM MANUTENCAO::");
         } 
       }
       //Registrar rota
@@ -232,12 +230,11 @@ public class Principal {
       }
       
       else if(opcao == 8) {
-        double vinte = 0;
         int o = 0;
         while(o != 5) {
           System.out.println("\n1 - LISTA DOS VEICULOS COM AUTONOMIA INFERIOR A 20% DA CAPACIDADE TOTAL DA BATERIA." + 
         "\n2 - VIAGENS REALIZADAS POR UM DETERMINADO MOTORISTA" + 
-        "\n3 - HISTORICO DE RECARGAS DE UM VEICULO" + 
+        "\n3 - HISTORICO DE RECARGAS" + 
         "\n4 - CARROS QUE PRECISAM DE MANUTENCAO." + 
         "\n5 - VOLTAR");
 
@@ -247,24 +244,10 @@ public class Principal {
           List<Veiculos> listVeiculos = frota.getVeiculos();
           int contador = 0;
           System.out.println("Lista dos veiculos com menos de 20% da bateria:\n");
-          for(Veiculos veiculo : listVeiculos){
-            
-            if (veiculo.getCapacidadeTotalBateria()<0.2*veiculo.getAutonomiaMaxima()){
-              System.out.println("ID do Veiculo: " + veiculo.getId() + ", Marca: " + veiculo.getMarca() + ", Modelo: " + veiculo.getModelo());
-              contador += 1;
-            }
-           
-            
-
-          }
-          if (contador == 0)
-            System.out.print("Nenhum Veiculo com menos de 20% da Bateria\n");
-          
+          registros.autonomiaInferior(frota.getVeiculos());
+          }    
         
-          
-
-        }
-        if(o == 2) {
+        else if (o == 2) {
         System.out.println("\n::Motoristas::");
           List<Motoristas> listMotoristas = frota.getMotoristas();
           int contador = 0;
@@ -282,11 +265,13 @@ public class Principal {
         else if (o == 3) {
           registros.exibirHistoricoRecargas();
         }
-        
-        
+
+        else if (o == 4){
+          registros.consultarVeiculosManutencao(frota.getVeiculos());
         }
         
         
+        }
         
       }
       //Sair...

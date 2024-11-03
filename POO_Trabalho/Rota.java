@@ -62,10 +62,6 @@ public class Rota {
     this.eletropostos.add(eletroposto);
   }
 
-    public void setKmPercorrido(double kmPercorrido) {
-        this.kmPercorrido = kmPercorrido;
-    }
-
 
   
   
